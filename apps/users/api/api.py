@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import DjangoModelPermissions
 from rest_framework import viewsets
 from rest_framework.parsers import JSONParser, MultiPartParser
+from apps.base.utils import CustomDjangoModelPermissions
 from apps.users.models import User
 from apps.users.api.serializers import (
     CustomUserSerializer, UserListSerializer, UpdateUserSerializer,
@@ -18,7 +19,7 @@ class UserViewSet(viewsets.GenericViewSet):
     list_serializer_class = UserListSerializer
     parser_classes = (JSONParser, MultiPartParser)
     queryset = None
-    permission_classes = [DjangoModelPermissions]
+    permission_classes = [CustomDjangoModelPermissions]
 
     def get_object(self, pk):
         obj = get_object_or_404(self.model, pk=pk)

@@ -29,10 +29,12 @@ class Login(ObtainAuthToken):
             if user.is_active:
                 token,created = Token.objects.get_or_create(user = user)
                 user_serializaer = UserTokenSerializer(user)
+                permissions = user.get_all_permissions()
                 if created:
                     return Response({
                         'token': token.key,
-                        'user':user_serializaer.data
+                        'user':user_serializaer.data,
+                        'permissions': permissions
                         }, status = status.HTTP_201_CREATED)
                 else:
                     all_sessions = Session.objects.filter(expire_date__gte = datetime.now())
@@ -45,7 +47,8 @@ class Login(ObtainAuthToken):
                     token = Token.objects.create(user = user)
                     return Response({
                         'token': token.key,
-                        'user': user_serializaer.data
+                        'user': user_serializaer.data,
+                        'permissions': permissions
                     }, status=status.HTTP_201_CREATED)
             else:
                 return Response({'error':'This user is disabled'}, status = status.HTTP_401_UNAUTHORIZED)

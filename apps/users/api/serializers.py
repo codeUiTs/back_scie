@@ -17,13 +17,31 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
-
+    def get_Permissions(self, user):
+        return user.get_all_permissions()    
+        
+    def to_representation(self, instance):
+        return {
+            'id': instance.id,
+            'name': instance.name,
+            'username': instance.username,
+            'email': instance.email,
+            'date_of_birth': instance.date_of_birth,
+            'address': instance.address,
+            'phone': instance.phone,
+            'gender': instance.gender,
+            'r_object': instance.r_object,
+            'permissions': self.get_Permissions(instance)
+            # 'image': instance.image.url if instance.image != '' else '',
+        }
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
         extra_kwargs = { 'password': { 'write_only': True}}
-        
+    def get_Permissions(self, user):
+        return user.get_all_permissions()    
+    
     def create(self,validated_data):
         user = User(**validated_data)
         user.set_password(validated_data['password'])
@@ -41,6 +59,7 @@ class UserSerializer(serializers.ModelSerializer):
             'phone': instance.phone,
             'gender': instance.gender,
             'r_object': instance.r_object,
+            'permissions': self.get_Permissions(instance)
             # 'image': instance.image.url if instance.image != '' else '',
         }
 
