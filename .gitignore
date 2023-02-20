@@ -1,1 +1,6 @@
 logs/logger.log
+data/
+.DS_Store
+.env
+*.pyc
+__pycache__/*

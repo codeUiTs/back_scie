@@ -84,8 +84,8 @@ class PasswordSerializer(serializers.Serializer):
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id','email','name','last_name', 'username','is_staff','r_object')
-        extra_kwargs = { 'password': { 'write_only': True}}
+        fields = ('id','email','name','last_name', 'username','is_staff','r_object', 'password')
+        # extra_kwargs = { 'password': { 'write_only': True}}
         
         # fields = "__all__"
     # def to_representation(self, instance):

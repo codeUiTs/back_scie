@@ -49,7 +49,6 @@ class UserViewSet(viewsets.GenericViewSet):
 
 
     def list(self, request):
-        print(request.user)
         users = self.get_queryset()
         users_serializer = self.list_serializer_class(users, many=True)
         return Response(users_serializer.data, status=status.HTTP_200_OK)

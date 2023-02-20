@@ -23,7 +23,7 @@ path/to/venv/Scripts/activate.bat
 #
 ### Install requeriments
 ```bash
-pip install -r requeriments.txt
+pip install -r requirements.txt
 ```
 
 ### Make database
@@ -43,4 +43,13 @@ python manage.py migrate users
 ```bash
 python manage.py createsuperuser --username <username>
 #Follow the instructions
+```
+## Setup project from docker
+```bash
+docker compose up -d
+```
+### Make superadmin from docker
+```bash
+docker exec -u root -t -i back_sci /bin/bash
+python manage.py createsuperuser --username <username>
 ```
