@@ -3,7 +3,7 @@ from django.urls import include, path, re_path
 from django.views.static import serve
 from django.conf import settings
 
-from apps.users.views import Login, Logout, UserToken
+from apps.users.views import Login, Logout, UserToken, ManagePassword
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -11,7 +11,9 @@ urlpatterns = [
     path('login/', Login.as_view(), name = 'login'),
     path('refresh-token/', UserToken.as_view(), name = 'refresh-token'),
     path('logout/', Logout.as_view(), name = 'logout'),
+    path('set-password/<int:pk>/', ManagePassword.as_view(), name = 'set-password'),
     path('users/', include('apps.users.api.routers')),
+    path('facturas-cliente/', include('apps.facturasCliente.api.routers')),
 ]
 
 urlpatterns += [

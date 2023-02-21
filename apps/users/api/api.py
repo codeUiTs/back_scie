@@ -73,10 +73,6 @@ class UserViewSet(viewsets.GenericViewSet):
     def update(self, request, pk=None):
         user = self.get_object(pk)
         if user:
-            # if request.data['image']:
-            #     data = validate_files(request.data, 'image', True)
-            #     user_serializer = UpdateUserSerializer(user, data=data)
-            # else:
             user_serializer = UpdateUserSerializer(user, data=request.data)
             if user_serializer.is_valid():
                 user_serializer.save()

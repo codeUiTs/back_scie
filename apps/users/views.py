@@ -5,7 +5,9 @@ from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
-from apps.users.api.serializers import UserTokenSerializer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from apps.users.api.serializers import PasswordSerializer, UserTokenSerializer
 from rest_framework.authentication import get_authorization_header
 class UserToken(APIView):
     def post(self,request,*args,**kwargs):
@@ -78,6 +80,42 @@ class Logout(APIView):
                 return Response({'token_message': 'Deleted token.', 'session_message': 'Deleted user sessions.'},
                                 status=status.HTTP_200_OK)
 
+            return Response({'error': 'A user with these credentials was not found.'},
+                            status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response({'error': 'No token found in request.'},
+                            status=status.HTTP_409_CONFLICT)
+            
+
+class ManagePassword(APIView):
+    permission_classes = [IsAuthenticated,]
+    def post(self, request, pk=None):
+        id = pk or request.query_params.get('id')
+        try:
+            token = get_authorization_header(request).split()
+            try:
+                token = token[1].decode()
+            except:
+                return None
+            token = Token.objects.filter(key=token).first()
+
+            if token:
+                user = token.user
+                if user.id == id:
+                    password_serializer = PasswordSerializer(data=request.data)
+                    if password_serializer.is_valid():
+                        user.set_password(password_serializer.validated_data['password'])
+                        user.save()
+                        return Response({
+                            'message': 'Password updated successfully'
+                        })
+                    return Response({
+                        'message': 'There are errors in the information received',
+                        'errors': password_serializer.errors
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                return Response({
+                    'message': "You're not the owner of this account",
+                }, status=status.HTTP_400_BAD_REQUEST)
             return Response({'error': 'A user with these credentials was not found.'},
                             status=status.HTTP_400_BAD_REQUEST)
         except:
