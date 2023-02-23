@@ -47,7 +47,13 @@ BASE_APPS = [
 LOCAL_APPS = [
     'apps.base',
     'apps.users',
-    'apps.facturasCliente'
+    'apps.facturasCliente',
+    'apps.libroDiario',
+    'apps.libroMayor',
+    'apps.productosVendibles',
+    'apps.solicitudSuministros',
+    'apps.pagos',
+    
 ]
 
 THIRD_APPS = [

@@ -14,6 +14,11 @@ urlpatterns = [
     path('set-password/<int:pk>/', ManagePassword.as_view(), name = 'set-password'),
     path('users/', include('apps.users.api.routers')),
     path('facturas-cliente/', include('apps.facturasCliente.api.routers')),
+    path('libroDiario/', include('apps.libroDiario.api.routers')),
+    path('libroMayor/', include('apps.libroMayor.api.routers')),
+    path('pagos/', include('apps.pagos.api.routers')),
+    path('productosVendibles/', include('apps.productosVendibles.api.routers')),
+    path('solicitudSuministros/', include('apps.solicitudSuministros.api.routers')),
 ]
 
 urlpatterns += [
