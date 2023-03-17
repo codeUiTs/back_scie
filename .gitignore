@@ -1,6 +1,10 @@
 logs/logger.log
 data/
 .DS_Store
-.env
 *.pyc
 __pycache__/*
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
