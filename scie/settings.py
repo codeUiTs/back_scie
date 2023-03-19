@@ -47,13 +47,13 @@ BASE_APPS = [
 
 LOCAL_APPS = [
     'apps.base',
-    'apps.users',
-    'apps.facturasCliente',
+    'apps.user',
+    'apps.facturaCliente',
     'apps.libroDiario',
     'apps.libroMayor',
-    'apps.productosVendibles',
-    'apps.solicitudSuministros',
-    'apps.pagos',
+    'apps.productoVendible',
+    'apps.solicitudSuministro',
+    'apps.pago',
     
 ]
 
@@ -145,7 +145,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'user.User'
 
 STATIC_URL = 'static/'
 

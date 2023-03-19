@@ -3,7 +3,7 @@ from django.urls import include, path, re_path
 from django.views.static import serve
 from django.conf import settings
 
-from apps.users.views import Login, Logout, UserToken, ManagePassword
+from apps.user.views import Login, Logout, UserToken, ManagePassword
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -12,13 +12,13 @@ urlpatterns = [
     path('refresh-token/', UserToken.as_view(), name = 'refresh-token'),
     path('logout/', Logout.as_view(), name = 'logout'),
     path('set-password/<int:pk>/', ManagePassword.as_view(), name = 'set-password'),
-    path('users/', include('apps.users.api.routers')),
-    path('facturas-cliente/', include('apps.facturasCliente.api.routers')),
+    path('users/', include('apps.user.api.routers')),
+    path('facturas-cliente/', include('apps.facturaCliente.api.routers')),
     path('libroDiario/', include('apps.libroDiario.api.routers')),
     path('libroMayor/', include('apps.libroMayor.api.routers')),
-    path('pagos/', include('apps.pagos.api.routers')),
-    path('productosVendibles/', include('apps.productosVendibles.api.routers')),
-    path('solicitudSuministros/', include('apps.solicitudSuministros.api.routers')),
+    path('pagos/', include('apps.pago.api.routers')),
+    path('productosVendibles/', include('apps.productoVendible.api.routers')),
+    path('solicitudSuministros/', include('apps.solicitudSuministro.api.routers')),
 ]
 
 urlpatterns += [
