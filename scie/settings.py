@@ -47,13 +47,21 @@ BASE_APPS = [
 
 LOCAL_APPS = [
     'apps.base',
-    'apps.user',
+    'apps.diarioVentasCompras',
     'apps.facturaCliente',
+    'apps.facturaProveedor',
     'apps.libroDiario',
     'apps.libroMayor',
-    'apps.productoVendible',
-    'apps.solicitudSuministro',
     'apps.pago',
+    'apps.planContable',
+    'apps.planificador',
+    'apps.productoVendible',
+    'apps.proveedor',
+    'apps.reporteFinanciero',
+    'apps.salidaInventario',
+    'apps.solicitudSuministro',
+    'apps.transferencia',
+    'apps.user',
     
 ]
 

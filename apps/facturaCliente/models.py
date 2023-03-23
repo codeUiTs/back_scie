@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.timezone import now
 from apps.base.models import Common
 
 class FacturaCliente(Common):
@@ -15,8 +15,8 @@ class FacturaCliente(Common):
         verbose_name_plural = 'Facturas Cliente'
         
     cliente = models.CharField(max_length=255, null=False)
-    fecha_factura = models.DateField(null=True ,auto_now_add=True)
-    fecha_vencimiento = models.DateField(null=True ,auto_now_add=True)
+    fecha_factura = models.DateField(null=True , default=now)
+    fecha_vencimiento = models.DateField(null=True, default=now )
     total = models.CharField(max_length=255, null=True)
     estado = models.CharField(max_length=255, null=True, choices=invoiceChoices, default='Draft')
     
