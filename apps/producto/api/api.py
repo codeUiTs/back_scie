@@ -6,14 +6,14 @@ from rest_framework.decorators import action
 from rest_framework import viewsets
 from rest_framework.parsers import JSONParser, MultiPartParser
 from apps.base.utils import CustomDjangoModelPermissions
-from apps.productoVendible.api.serializers import PvSerializer, ListPvSerializer
-from apps.productoVendible.models import ProductoVendible
+from apps.producto.api.serializers import ProductoSerializer, ListProductoSerializer
+from apps.producto.models import Producto
 
 
-class PvViewSet(viewsets.GenericViewSet):
-    model = ProductoVendible
-    serializer_class = PvSerializer
-    list_serializer_class = ListPvSerializer
+class ProductoViewSet(viewsets.GenericViewSet):
+    model = Producto
+    serializer_class = ProductoSerializer
+    list_serializer_class = ListProductoSerializer
     parser_classes = (JSONParser, MultiPartParser)
     queryset = None
     permission_classes = [CustomDjangoModelPermissions]
@@ -27,6 +27,7 @@ class PvViewSet(viewsets.GenericViewSet):
         if pk is None:
             return self.get_serializer().Meta.model.objects.filter()
         return self.get_serializer().Meta.model.objects.filter(id=pk).first()
+    
 
     def list(self, request):
         Activo = self.get_serializer(
@@ -43,7 +44,7 @@ class PvViewSet(viewsets.GenericViewSet):
     def retrieve(self, request, pk=None):
         record = self.get_queryset(pk)
         if record:
-            record_serializer = PvSerializer(record)
+            record_serializer = ProductoSerializer(record)
             return Response(record_serializer.data, status=status.HTTP_200_OK)
         return Response({'error': 'No existe un record con estos datos!'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -71,3 +72,10 @@ class PvViewSet(viewsets.GenericViewSet):
             record.save()
             return Response({'message': 'r_object actualizado correctamente!'}, status=status.HTTP_200_OK)
         return Response({'error': 'No existe un record con estos datos!'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    @action(methods=['GET'], detail=False, url_path="listVendible", url_name="listVendible")
+    def listVendible(self, request):
+        Activo = self.get_serializer(
+            self.get_serializer().Meta.model.objects.filter(vendible=True), many=True)
+        
+        return Response(Activo.data, status=status.HTTP_200_OK)

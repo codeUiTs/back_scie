@@ -6,9 +6,10 @@ class Proveedor(Common):
         verbose_name = 'Proveedor'
         verbose_name_plural = 'Proveedores'
         
-    diario = models.CharField(max_length=255, null=False)
-    fecha_inicio = models.DateField(null=False ,auto_now_add=True)
-    fecha_fin = models.DateField(null=False ,auto_now_add=True)
+    nombre = models.CharField(max_length=255, null=False, blank=True)
+    direccion = models.CharField(max_length=255, null=False, blank=True)
+    email = models.EmailField(max_length=255, null=True, blank=True)
+    
     
     def __str__(self):
-        return self.diario
+        return self.nombre

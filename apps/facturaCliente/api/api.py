@@ -6,14 +6,15 @@ from rest_framework.decorators import action
 from rest_framework import viewsets
 from rest_framework.parsers import JSONParser, MultiPartParser
 from apps.base.utils import CustomDjangoModelPermissions
-from apps.facturaCliente.api.serializers import FcSerializer, ListFcSerializer
-from apps.facturaCliente.models import FacturaCliente
+from apps.facturaCliente.api.serializers import FcSerializer, ListFcSerializer, ClienteSerializer
+from apps.facturaCliente.models import FacturaCliente, Cliente
 
 
 class FcViewSet(viewsets.GenericViewSet):
     model = FacturaCliente
     serializer_class = FcSerializer
     list_serializer_class = ListFcSerializer
+    list_clientes_class = ClienteSerializer
     parser_classes = (JSONParser, MultiPartParser)
     queryset = None
     permission_classes = [CustomDjangoModelPermissions]
@@ -29,8 +30,8 @@ class FcViewSet(viewsets.GenericViewSet):
         return self.get_serializer().Meta.model.objects.filter(id=pk).first()
 
     def list(self, request):
-        Activo = self.get_serializer(
-            self.get_queryset(), many=True)
+        users = self.get_queryset()
+        Activo = self.list_serializer_class(users, many=True)
         return Response(Activo.data, status=status.HTTP_200_OK)
 
     def create(self, request):
@@ -71,3 +72,10 @@ class FcViewSet(viewsets.GenericViewSet):
             record.save()
             return Response({'message': 'r_object actualizado correctamente!'}, status=status.HTTP_200_OK)
         return Response({'error': 'No existe un record con estos datos!'}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(methods=['GET'], detail=False, url_path="clientes", url_name="clientes")
+    def ListClientes(self, request):
+        Clientes = ClienteSerializer(Cliente.objects.all(), many=True)
+        
+        return Response(Clientes.data, status=status.HTTP_200_OK)
+

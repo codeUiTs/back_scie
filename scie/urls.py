@@ -17,7 +17,7 @@ urlpatterns = [
     path('libroDiario/', include('apps.libroDiario.api.routers')),
     path('libroMayor/', include('apps.libroMayor.api.routers')),
     path('pagos/', include('apps.pago.api.routers')),
-    path('productosVendibles/', include('apps.productoVendible.api.routers')),
+    path('producto/', include('apps.producto.api.routers')),
     path('solicitudSuministros/', include('apps.solicitudSuministro.api.routers')),
 ]
 

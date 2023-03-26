@@ -8,6 +8,8 @@ class SsSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class ListSsSerializer(serializers.ModelSerializer):
+    producto_solicitado = serializers.StringRelatedField(many=False)
+    producto_entregado = serializers.StringRelatedField(many=False)
     class Meta:
         model = SolicitudSuministro
-        exclude =("r_object",)
+        fields = "__all__"

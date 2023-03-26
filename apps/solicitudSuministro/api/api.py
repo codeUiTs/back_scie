@@ -29,8 +29,7 @@ class SsViewSet(viewsets.GenericViewSet):
         return self.get_serializer().Meta.model.objects.filter(id=pk).first()
 
     def list(self, request):
-        Activo = self.get_serializer(
-            self.get_queryset(), many=True)
+        Activo = self.list_serializer_class(self.get_queryset(), many=True)
         return Response(Activo.data, status=status.HTTP_200_OK)
 
     def create(self, request):
