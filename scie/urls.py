@@ -5,6 +5,9 @@ from django.conf import settings
 
 from apps.user.views import Login, Logout, UserToken, ManagePassword
 
+admin.site.site_header = "Admin panel"
+admin.site.index_title = 'Adminstración'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api_authorization/', include('rest_framework.urls')),
@@ -18,6 +21,8 @@ urlpatterns = [
     path('libroMayor/', include('apps.libroMayor.api.routers')),
     path('pagos/', include('apps.pago.api.routers')),
     path('producto/', include('apps.producto.api.routers')),
+    path('proveedor/', include('apps.proveedor.api.routers')),
+    path('planContable/', include('apps.planContable.api.routers')),
     path('solicitudSuministros/', include('apps.solicitudSuministro.api.routers')),
 ]
 

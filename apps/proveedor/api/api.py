@@ -1,27 +1,19 @@
-import datetime
 import json
-import os
-import pandas as pd
-from django.utils.timezone import now
-from django.http import HttpResponse
-from pathlib import Path
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework import viewsets
 from rest_framework.parsers import JSONParser, MultiPartParser
-from apps.base.utils import CustomDjangoModelPermissions, html_to_pdf
-from apps.facturaCliente.api.serializers import FcSerializer, ListFcSerializer, ClienteSerializer, ReportFcSerializer
-from apps.facturaCliente.models import FacturaCliente, Cliente
+from apps.base.utils import CustomDjangoModelPermissions
+from apps.proveedor.api.serializers import ProveedorSerializer, ListProveedorSerializer
+from apps.proveedor.models import Proveedor
 
-BASE_DIR = Path(__file__).resolve().parent.parent
 
-class FcViewSet(viewsets.GenericViewSet):
-    model = FacturaCliente
-    serializer_class = FcSerializer
-    list_serializer_class = ListFcSerializer
-    list_clientes_class = ClienteSerializer
+class ProveedorViewSet(viewsets.GenericViewSet):
+    model = Proveedor
+    serializer_class = ProveedorSerializer
+    list_serializer_class = ListProveedorSerializer
     parser_classes = (JSONParser, MultiPartParser)
     queryset = None
     permission_classes = [CustomDjangoModelPermissions]
@@ -35,10 +27,10 @@ class FcViewSet(viewsets.GenericViewSet):
         if pk is None:
             return self.get_serializer().Meta.model.objects.filter()
         return self.get_serializer().Meta.model.objects.filter(id=pk).first()
+    
 
     def list(self, request):
-        users = self.get_queryset()
-        Activo = self.list_serializer_class(users, many=True)
+        Activo = self.list_serializer_class(self.get_queryset(), many=True)
         return Response(Activo.data, status=status.HTTP_200_OK)
 
     def create(self, request):
@@ -51,7 +43,7 @@ class FcViewSet(viewsets.GenericViewSet):
     def retrieve(self, request, pk=None):
         record = self.get_queryset(pk)
         if record:
-            record_serializer = FcSerializer(record)
+            record_serializer = ProveedorSerializer(record)
             return Response(record_serializer.data, status=status.HTTP_200_OK)
         return Response({'error': 'No existe un record con estos datos!'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -79,44 +71,10 @@ class FcViewSet(viewsets.GenericViewSet):
             record.save()
             return Response({'message': 'r_object actualizado correctamente!'}, status=status.HTTP_200_OK)
         return Response({'error': 'No existe un record con estos datos!'}, status=status.HTTP_400_BAD_REQUEST)
-
-    @action(methods=['GET'], detail=False, url_path="clientes", url_name="clientes")
-    def ListClientes(self, request):
-        Clientes = ClienteSerializer(Cliente.objects.all(), many=True)
-        
-        return Response(Clientes.data, status=status.HTTP_200_OK)
     
-    @action(methods=['GET'], detail=False, url_path="generateReport", url_name="generateReport")
-    def generateReport(self, request):
-        Activo = ReportFcSerializer(self.get_queryset(), many=True)
-        dir = os.path.abspath(os.path.dirname(__name__))
-        fecha_actual = datetime.datetime.now().date()
-        demo_df = pd.DataFrame(Activo.data)
-        demo_df = demo_df.fillna(0)
-        demo_df.rename(columns={'id':'ID','producto':'Producto', 'cliente':'Cliente', 'fecha_factura':'Fecha', 'importe':'Importe'}, inplace=True)
-        html_string = '''
-        <html>
-        <head><title>{title}</title></head>
-        <link rel="stylesheet" type="text/css" href="{styles}"/>
-        <body>
-        <header>
-            <nav>
-            <img src="{img}" alt="icon" style="width:40px;float:right;">
-            <br />
-            <h1> Reporte de {title} </h1>
-            <h1> Fecha: {time} </h1>
-            </nav>
-        </header>
-            {table}
-        </body>
-        </html>.
-        '''
-
-        with open("files/docs/myhtml.html", 'w') as f:
-            f.write(html_string.format(table=demo_df.to_html(classes='styled-table', index=False), styles=f"{dir}/files/css/pdfStyles.css", img=f"{dir}/files/assets/icon.png", title="Facturas cliente", time=fecha_actual))
-        pdf = html_to_pdf('files/docs/myhtml.html')
-         
-         # rendering the template
-        return HttpResponse(pdf, content_type='application/pdf')
+    @action(methods=['GET'], detail=False, url_path="listVendible", url_name="listVendible")
+    def listVendible(self, request):
+        Activo = self.get_serializer(
+            self.get_serializer().Meta.model.objects.filter(vendible=True), many=True)
         
-        
+        return Response(Activo.data, status=status.HTTP_200_OK)

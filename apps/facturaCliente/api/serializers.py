@@ -18,3 +18,10 @@ class ListFcSerializer(serializers.ModelSerializer):
     class Meta:
         model = FacturaCliente
         fields = "__all__"
+
+class ReportFcSerializer(serializers.ModelSerializer):
+    producto = serializers.StringRelatedField(many=True)
+    cliente = serializers.StringRelatedField(many=False)
+    class Meta:
+        model = FacturaCliente
+        exclude = ('r_object','uuid','descripcion')
