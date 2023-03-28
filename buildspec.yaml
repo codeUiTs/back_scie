@@ -12,7 +12,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Running tests
-
+      - python3 manage.py migrate
 
   post_build:
     commands:
