@@ -21,6 +21,7 @@ urlpatterns = [
     path('libroMayor/', include('apps.libroMayor.api.routers')),
     path('pagos/', include('apps.pago.api.routers')),
     path('producto/', include('apps.producto.api.routers')),
+    path('salidaInventario/', include('apps.salidaInventario.api.routers')),
     path('proveedor/', include('apps.proveedor.api.routers')),
     path('planContable/', include('apps.planContable.api.routers')),
     path('solicitudSuministros/', include('apps.solicitudSuministro.api.routers')),

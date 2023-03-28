@@ -6,14 +6,14 @@ from rest_framework.decorators import action
 from rest_framework import viewsets
 from rest_framework.parsers import JSONParser, MultiPartParser
 from apps.base.utils import CustomDjangoModelPermissions
-from apps.solicitudSuministro.api.serializers import SsSerializer, ListSsSerializer
-from apps.solicitudSuministro.models import SolicitudSuministro
+from apps.salidaInventario.api.serializers import SalidaInventarioSerializer, ListSalidaInventarioSerializer
 from apps.salidaInventario.models import SalidaInventario
-from apps.producto.models import Producto
-class SsViewSet(viewsets.GenericViewSet):
-    model = SolicitudSuministro
-    serializer_class = SsSerializer
-    list_serializer_class = ListSsSerializer
+
+
+class SalidaInventarioViewSet(viewsets.GenericViewSet):
+    model = SalidaInventario
+    serializer_class = SalidaInventarioSerializer
+    list_serializer_class = ListSalidaInventarioSerializer
     parser_classes = (JSONParser, MultiPartParser)
     queryset = None
     permission_classes = [CustomDjangoModelPermissions]
@@ -36,19 +36,13 @@ class SsViewSet(viewsets.GenericViewSet):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            prod = Producto.objects.get(id=serializer.data['producto_solicitado'])
-            cantidad = int(serializer.data['cantidad_solicitada'])
-            prod.unidades_disponibles -= cantidad
-            prod.save()
-            sal = SalidaInventario(producto_solicitado=prod, cantidad_solicitada=serializer.data['cantidad_solicitada'], estado=serializer.data['estado'], importe=prod.precio_unitario)
-            sal.save()
             return Response({'message': 'Registro creado correctamente!'}, status=status.HTTP_201_CREATED)
         return Response({'message': '', 'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request, pk=None):
         record = self.get_queryset(pk)
         if record:
-            record_serializer = SsSerializer(record)
+            record_serializer = SalidaInventarioSerializer(record)
             return Response(record_serializer.data, status=status.HTTP_200_OK)
         return Response({'error': 'No existe un record con estos datos!'}, status=status.HTTP_400_BAD_REQUEST)
 

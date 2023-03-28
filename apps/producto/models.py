@@ -27,7 +27,7 @@ class Producto(Common):
         
     nombre = models.CharField(max_length=255, null=True, unique=True)    
     precio_unitario = models.CharField(max_length=255, null=False)
-    unidades_disponibles = models.CharField(max_length=255, null=True, blank=True) 
+    unidades_disponibles = models.IntegerField(null=True, blank=True) 
     vendible = models.BooleanField(default=False)  
     comprable = models.BooleanField(default=False)
     activo = models.BooleanField(default=False) 

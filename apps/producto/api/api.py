@@ -79,3 +79,10 @@ class ProductoViewSet(viewsets.GenericViewSet):
             self.get_serializer().Meta.model.objects.filter(vendible=True), many=True)
         
         return Response(Activo.data, status=status.HTTP_200_OK)
+
+    @action(methods=['GET'], detail=False, url_path="listGreaterThan", url_name="listGreaterThan")
+    def listGreaterThan(self, request):
+        Activo = self.get_serializer(
+            self.get_serializer().Meta.model.objects.filter(vendible=True, unidades_disponibles__gt=0), many=True)
+        
+        return Response(Activo.data, status=status.HTTP_200_OK)
