@@ -32,7 +32,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = True
 
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'http://localhost:9000']
-ALLOWED_HOSTS = ['sci-env.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['devapp-env.eba-me2sa37p.us-west-2.elasticbeanstalk.com']
 
 ADMINS = [('Admin','admin@admin.com'),('Misael', 'misaelvgm011@gmail.com')]
 
