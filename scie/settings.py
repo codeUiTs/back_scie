@@ -179,8 +179,6 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost"
 ]
 
-
-LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
