@@ -13,15 +13,15 @@ import environ
 import os
 from pathlib import Path
 
-env = environ.Env(
-    # POSTGRES_ENGINE=str,
-    # POSTGRES_USER=str,
-    # POSTGRES_PASSWORD=str,
-    # POSTGRES_DB=str,
-    # POSTGRES_HOST=str,
-    # POSTGRES_PORT=str,
-    SECRET_KEY=str,
-)
+# env = environ.Env(
+#     # POSTGRES_ENGINE=str,
+#     # POSTGRES_USER=str,
+#     # POSTGRES_PASSWORD=str,
+#     # POSTGRES_DB=str,
+#     # POSTGRES_HOST=str,
+#     # POSTGRES_PORT=str,
+#     SECRET_KEY=str,
+# )
 
 # environ.Env.read_env(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..') + '/.env')
 
@@ -133,7 +133,7 @@ if 'DB_NAME' in os.environ:
 else:
     DATABASES = {
         'default': {
-            'ENGINE': env('POSTGRES_ENGINE'),
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'sci_iu',
             'USER': 'sci_iu',
             'PASSWORD': 'complexpassword123',
