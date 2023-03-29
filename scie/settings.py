@@ -144,7 +144,6 @@ USE_TZ = True
 AUTH_USER_MODEL = 'user.User'
 
 STATIC_URL = 'static/'
-STATIC_ROOT = 'static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
