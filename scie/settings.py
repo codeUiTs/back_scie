@@ -119,28 +119,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'scie.wsgi.application'
 
-if 'DB_NAME' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ['DB_NAME'],
-            'USER': os.environ['DB_USERNAME'],
-            'PASSWORD': os.environ['DB_PASSWORD'],
-            'HOST': os.environ['DB_HOST'],
-            'PORT': os.environ['DB_PORT'],
-        }
+# if 'DB_NAME' in os.environ:
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USERNAME'],
+        'PASSWORD': os.environ['DB_PASSWORD'],
+        'HOST': os.environ['DB_HOST'],
+        'PORT': os.environ['DB_PORT'],
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'sci_iu',
-            'USER': 'sci_iu',
-            'PASSWORD': 'complexpassword123',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
-}
+    }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'sci_iu',
+#             'USER': 'sci_iu',
+#             'PASSWORD': 'complexpassword123',
+#             'HOST': 'localhost',
+#             'PORT': '5432',
+#         }
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
