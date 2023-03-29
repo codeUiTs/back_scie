@@ -13,17 +13,17 @@ import environ
 import os
 from pathlib import Path
 
-env = environ.Env(
-    POSTGRES_ENGINE=str,
-    POSTGRES_USER=str,
-    POSTGRES_PASSWORD=str,
-    POSTGRES_DB=str,
-    POSTGRES_HOST=str,
-    POSTGRES_PORT=str,
-    SECRET_KEY=str,
-)
+# env = environ.Env(
+#     POSTGRES_ENGINE=str,
+#     POSTGRES_USER=str,
+#     POSTGRES_PASSWORD=str,
+#     POSTGRES_DB=str,
+#     POSTGRES_HOST=str,
+#     POSTGRES_PORT=str,
+#     SECRET_KEY=str,
+# )
 
-environ.Env.read_env(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..') + '/.env')
+# environ.Env.read_env(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..') + '/.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -134,11 +134,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': env('POSTGRES_ENGINE'),
-            'NAME': env('POSTGRES_DB'),
-            'USER': env('POSTGRES_USER'),
-            'PASSWORD': env('POSTGRES_PASSWORD'),
-            'HOST': env('POSTGRES_HOST'),
-            'PORT': env('POSTGRES_PORT')
+            'NAME': 'sci_iu',
+            'USER': 'sci_iu',
+            'PASSWORD': 'complexpassword123',
+            'HOST': 'localhost',
+            'PORT': '5432',
         }
 }
 
