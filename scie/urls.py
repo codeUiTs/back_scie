@@ -17,6 +17,7 @@ urlpatterns = [
     path('set-password/<int:pk>/', ManagePassword.as_view(), name = 'set-password'),
     path('users/', include('apps.user.api.routers')),
     path('facturas-cliente/', include('apps.facturaCliente.api.routers')),
+    path('facturas-proveedor/', include('apps.facturaProveedor.api.routers')),
     path('libroDiario/', include('apps.libroDiario.api.routers')),
     path('libroMayor/', include('apps.libroMayor.api.routers')),
     path('pagos/', include('apps.pago.api.routers')),
