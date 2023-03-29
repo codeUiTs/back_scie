@@ -40,7 +40,8 @@ class SsViewSet(viewsets.GenericViewSet):
             cantidad = int(serializer.data['cantidad_solicitada'])
             prod.unidades_disponibles -= cantidad
             prod.save()
-            sal = SalidaInventario(producto_solicitado=prod, cantidad_solicitada=serializer.data['cantidad_solicitada'], estado=serializer.data['estado'], importe=prod.precio_unitario)
+            pu= int(prod.precio_unitario) * cantidad
+            sal = SalidaInventario(producto_solicitado=prod, cantidad_solicitada=serializer.data['cantidad_solicitada'], estado=serializer.data['estado'], importe=str(pu))
             sal.save()
             return Response({'message': 'Registro creado correctamente!'}, status=status.HTTP_201_CREATED)
         return Response({'message': '', 'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
