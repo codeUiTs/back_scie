@@ -9,21 +9,8 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-import environ
 import os
 from pathlib import Path
-
-# env = environ.Env(
-#     # POSTGRES_ENGINE=str,
-#     # POSTGRES_USER=str,
-#     # POSTGRES_PASSWORD=str,
-#     # POSTGRES_DB=str,
-#     # POSTGRES_HOST=str,
-#     # POSTGRES_PORT=str,
-#     SECRET_KEY=str,
-# )
-
-# environ.Env.read_env(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..') + '/.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -119,28 +106,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'scie.wsgi.application'
 
-# if 'DB_NAME' in os.environ:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USERNAME'],
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': os.environ['DB_HOST'],
-        'PORT': os.environ['DB_PORT'],
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USERNAME'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
-    }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': 'sci_iu',
-#             'USER': 'sci_iu',
-#             'PASSWORD': 'complexpassword123',
-#             'HOST': 'localhost',
-#             'PORT': '5432',
-#         }
-# }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
