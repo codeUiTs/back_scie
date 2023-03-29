@@ -19,7 +19,7 @@ SECRET_KEY = "django-insecure-yw*1tg0-3!00*&6hhnhy-#p*6$8m5r-#m5e9a)+5!sud13(1l2
 DEBUG = True
 
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'http://localhost:9000']
-ALLOWED_HOSTS = ['ultapp-dev.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['ultapp-dev.us-west-2.elasticbeanstalk.com', 'localhost']
 
 ADMINS = [('Admin','admin@admin.com'),('Misael', 'misaelvgm011@gmail.com')]
 
@@ -153,3 +153,13 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:9300",
     "http://localhost"
 ]
+
+AWS_ACCESS_KEY_ID = 'AKIAYZUCAZPDEMZH2N7W '
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'backsci'
+AWS_S3_SIGNATURE_NAME = 's3v4',
+AWS_S3_REGION_NAME = 'us-west-2'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL =  None
+AWS_S3_VERITY = True
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
