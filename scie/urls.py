@@ -9,7 +9,7 @@ admin.site.site_header = "Admin panel"
 admin.site.index_title = 'Adminstración'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', admin.site.urls),
     path('api_authorization/', include('rest_framework.urls')),
     path('login/', Login.as_view(), name = 'login'),
     path('refresh-token/', UserToken.as_view(), name = 'refresh-token'),
