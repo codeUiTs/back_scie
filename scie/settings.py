@@ -147,12 +147,7 @@ STATIC_ROOT = 'static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ORIGIN_WHITELIST = [
-    "http://localhost:8000",
-    "http://localhost:9000",
-    "http://localhost:9300",
-    "http://localhost"
-]
+CORS_ORIGIN_WHITELIST = ['*']
 
 AWS_ACCESS_KEY_ID = 'AKIAYZUCAZPDEMZH2N7W '
 AWS_SECRET_ACCESS_KEY = '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'
