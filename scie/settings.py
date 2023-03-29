@@ -13,15 +13,15 @@ import environ
 import os
 from pathlib import Path
 
-# env = environ.Env(
-#     POSTGRES_ENGINE=str,
-#     POSTGRES_USER=str,
-#     POSTGRES_PASSWORD=str,
-#     POSTGRES_DB=str,
-#     POSTGRES_HOST=str,
-#     POSTGRES_PORT=str,
-#     SECRET_KEY=str,
-# )
+env = environ.Env(
+    # POSTGRES_ENGINE=str,
+    # POSTGRES_USER=str,
+    # POSTGRES_PASSWORD=str,
+    # POSTGRES_DB=str,
+    # POSTGRES_HOST=str,
+    # POSTGRES_PORT=str,
+    SECRET_KEY=str,
+)
 
 # environ.Env.read_env(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..') + '/.env')
 
@@ -119,15 +119,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'scie.wsgi.application'
 
-if 'RDS_DB_NAME' in os.environ:
+if 'DB_NAME' in os.environ:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ['RDS_DB_NAME'],
-            'USER': os.environ['RDS_USERNAME'],
-            'PASSWORD': os.environ['RDS_PASSWORD'],
-            'HOST': os.environ['RDS_HOSTNAME'],
-            'PORT': os.environ['RDS_PORT'],
+            'NAME': os.environ['DB_NAME'],
+            'USER': os.environ['DB_USERNAME'],
+            'PASSWORD': os.environ['DB_PASSWORD'],
+            'HOST': os.environ['DB_HOST'],
+            'PORT': os.environ['DB_PORT'],
         }
     }
 else:
