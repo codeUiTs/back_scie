@@ -19,7 +19,7 @@ SECRET_KEY = "django-insecure-yw*1tg0-3!00*&6hhnhy-#p*6$8m5r-#m5e9a)+5!sud13(1l2
 DEBUG = True
 
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'http://localhost:9000']
-ALLOWED_HOSTS = ['back-scie-dev.us-west-2.elasticbeanstalk.com', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 ADMINS = [('Admin','admin@admin.com'),('Misael', 'misaelvgm011@gmail.com')]
 
